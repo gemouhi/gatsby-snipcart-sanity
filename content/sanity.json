@@ -1,11 +1,11 @@
 {
   "root": true,
+  "api": {
+    "projectId": "9jjccpxc",
+    "dataset": "production"
+  },
   "project": {
     "name": "gatsby-snipcart-sanity"
-  },
-  "api": {
-    "projectId": "rudszjz3",
-    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",

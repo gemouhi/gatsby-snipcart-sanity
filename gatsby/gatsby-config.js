@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+
+dotenv.config({ path: '.env' });
 module.exports = {
   siteMetadata: {
     title: `Gatsby + Sanity + Snipcart Ecommerce Starter`,
@@ -13,7 +16,7 @@ module.exports = {
       resolve: 'gatsby-plugin-snipcartv3',
       options: {
         //this key is hooked up to a test snipcart account. replace this key with yours.
-        apiKey: 'NjlkYWExMDMtMDIyYi00NTVlLWE1YjItODc2NjBhNjQ4MWQ3NjM3Mzg5NzMxNTc2MjI4MDIy',
+        apiKey: process.env.GATSBY_SNIPCART_APIKEY,
         autopop: true,
       }
     },
@@ -32,11 +35,11 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        projectId: `rudszjz3`,
-        dataset: `production`,
+        projectId: process.env.SANITY_API_KEY,
+        dataset: process.env.SANITY_DATASET,
         // a token with read permissions is required
         // if you have a private dataset
-        token: '',
+        token: process.env.SANITY_TOKEN,
 
         // If the Sanity GraphQL API was deployed using `--tag <name>`,
         // use `graphqlTag` to specify the tag name. Defaults to `default`.
