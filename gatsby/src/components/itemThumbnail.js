@@ -11,8 +11,8 @@ const ItemThumbnailStyled = styled.div`
     justify-content: center;
     margin: 0 20px;
     height: max-content;
-    font-family: var(--bodyFont)
-`
+    font-family: var(--bodyFont);
+`;
 
 const Heading = styled.h3`
     font-size: 1.3em;
@@ -21,7 +21,7 @@ const Heading = styled.h3`
     text-align: center;
     width: 100%;
     margin: auto;
-`
+`;
 
 const LinkStyled = styled(Link)`
     width: 100%;
@@ -32,10 +32,10 @@ const LinkStyled = styled(Link)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
+`;
 
 const DescStyled = styled.div`
-`
+`;
 
 const ImgStyled = styled(Img)`
     width: 250px;
@@ -43,12 +43,12 @@ const ImgStyled = styled(Img)`
     @media (max-width: 930px) {
         height: 250px;
       }
-`
+`;
 
 const Price = styled.p`
     padding-bottom: 10px;
     font-size:1.5rem;
-`
+`;
 
 const itemThumbnail = (props) => {
   return (

@@ -4,7 +4,7 @@ dotenv.config({ path: '.env' });
 module.exports = {
   siteMetadata: {
     title: `Gatsby + Sanity + Snipcart Ecommerce Starter`,
-    siteUrl: 'https://gatsbysnipcartsanity.netlify.app',
+    siteUrl: 'https://readingarden.com',
     description: 'A Gatsby + Sanity + Snipcart Ecommerce Starter 🍞',
   },
   plugins: [

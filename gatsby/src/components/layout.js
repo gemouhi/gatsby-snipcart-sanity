@@ -1,11 +1,9 @@
-import React from "react";
-import styled from 'styled-components';
-import { GlobalStyle } from '../styles/globalStyle';
+import React from 'react'
+import styled from 'styled-components'
+import { GlobalStyle } from '../styles/globalStyle'
 
-import Header from './header';
-import SocialLinks from './SocialLinks';
-
-
+import Header from './header'
+import SocialLinks from './SocialLinks'
 
 const PageWrapper = styled.div`
   width: 90%;
@@ -40,26 +38,38 @@ const ExternalLink = styled.a`
   }
 `
 
-class Layout extends React.Component {
-  render() {
-    const { children } = this.props
-    const siteName = "gatsby-snipcart-sanity"
-
-    return (
-        <>
-          <GlobalStyle />
-          <PageWrapper>
-            <Header shopName={siteName} />
-            <MainSection>{children}</MainSection>
-            <FooterStyled>
-              <SocialLinks />
-              <strong>Built by <ExternalLink href="https://stordahl.dev" target="_blank" rel="noopener noreferrer">Jacob Stordahl</ExternalLink></strong>
-              <strong>Contribute to this open source project on <ExternalLink href="https://github.com/stordahl/gatsby-snipcart-sanity" target="_blank" rel="noopener noreferrer">Github</ExternalLink></strong>
-            </FooterStyled>
-          </PageWrapper>
-        </>
-    )
-  }
+function Layout({ children }) {
+  return (
+    <>
+      <GlobalStyle />
+      <PageWrapper>
+        <Header shopName="jamo store" />
+        <MainSection>{children}</MainSection>
+        <FooterStyled>
+          <SocialLinks />
+          <strong>
+            Built by{' '}
+            <ExternalLink
+              href="https://stordahl.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Jacob Stordahl
+            </ExternalLink>
+          </strong>
+          <strong>
+            Contribute to this open source project on{' '}
+            <ExternalLink
+              href="https://github.com/stordahl/gatsby-snipcart-sanity"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Github
+            </ExternalLink>
+          </strong>
+        </FooterStyled>
+      </PageWrapper>
+    </>
+  )
 }
-
 export default Layout

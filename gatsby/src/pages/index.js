@@ -4,7 +4,6 @@ import styled from "styled-components"
 
 import CategoriesFilter from '../components/CategoriesFilter'
 import ItemThumbnail from '../components/itemThumbnail'
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const ThumbnailsWrapper = styled.div`
@@ -18,27 +17,27 @@ const ThumbnailsWrapper = styled.div`
 `
 
 export default function IndexPage({ data }) {
-  
+
     const siteTitle = data.allSite.nodes[0].siteMetadata.title
     const items = data.prods.nodes
 
     return (
-      <Layout  title={siteTitle}>
+      <>
         <SEO title="All items" />
         <CategoriesFilter />
         <ThumbnailsWrapper>
           {items.map(( item ) => {
-            const { 
-              title, 
-              id, 
-              slug: { current }, 
+            const {
+              title,
+              id,
+              slug: { current },
               blurb,
-              variants, 
+              variants,
             } = item
             return (
               <ItemThumbnail
                 key={id}
-                link={'products/' + current}
+                link={'product/' + current}
                 heading={title}
                 image={variants[0].images[0].asset.fluid}
                 price={variants[0].price}
@@ -47,9 +46,9 @@ export default function IndexPage({ data }) {
             )
           })}
         </ThumbnailsWrapper>
-      </Layout>
+      </>
     )
-  
+
 }
 
 export const pageQuery = graphql`

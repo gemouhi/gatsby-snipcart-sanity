@@ -18,9 +18,9 @@ async function TurnProductsIntoPages({ graphql, actions }) {
      }
   `);
 
-  data.products.nodes.forEach(prod => 
+  data.products.nodes.forEach(prod =>
     createPage({
-        path: 'products/' + prod.slug.current,
+        path: 'product/' + prod.slug.current,
         component: product,
         context: {
           slug: prod.slug.current,
@@ -47,7 +47,7 @@ async function TurnCategoriesIntoPages({ graphql, actions }) {
     }
   `);
 
-  data.categories.nodes.forEach(cat => 
+  data.categories.nodes.forEach(cat =>
     createPage({
         path: 'category/' + cat.slug.current,
         component: category,
