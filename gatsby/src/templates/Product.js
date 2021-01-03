@@ -159,7 +159,7 @@ export default class SingleItem extends React.Component {
     const { item } = this.state
     const { selected } = this.state
     const siteTitle = 'site title'
-    const { siteUrl } = this.props.data.site.siteMetadata
+    const siteUrl = this.props.data.site.siteMetadata.siteUrl
 
     const digitalVersion = item.variants.findIndex(isDigital)
 
@@ -181,7 +181,7 @@ export default class SingleItem extends React.Component {
                 data-item-name={item.title}
                 data-item-description={item.blurb.en}
                 data-item-image={item.variants[0].images[0].asset.fluid.src}
-                data-item-url={`${siteUrl}/products/${item.slug.current}`} // REPLACE WITH OWN URL
+                data-item-url={`${siteUrl)}/product/${item.slug.current}`} // REPLACE WITH OWN URL
               >
                 Add to cart
               </BuyButton>
@@ -221,7 +221,7 @@ export default class SingleItem extends React.Component {
                   data-item-name={item.title}
                   data-item-description={item.blurb.en}
                   data-item-image={item.variants[0].images[0].asset.fluid.src}
-                  data-item-url={`${siteUrl}/products/${item.slug.current}`} // REPLACE WITH OWN URL
+                  data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
                   data-item-custom1-name={item.variant_type}
                   data-item-custom1-options={this.createString(item.variants)}
                   data-item-custom1-value={selected.title}
@@ -252,7 +252,7 @@ export default class SingleItem extends React.Component {
                 data-item-name={item.title}
                 data-item-description={item.blurb.en}
                 data-item-image={item.variants[0].images[0].asset.fluid.src}
-                data-item-url={`${siteUrl}/products/${item.slug.current}`} // REPLACE WITH OWN URL
+                data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
                 data-item-file-guid={item.variants[digitalVersion].guid}
               >
                 Add to cart
@@ -291,7 +291,7 @@ export default class SingleItem extends React.Component {
               data-item-name={item.title}
               data-item-description={item.blurb.en}
               data-item-image={item.variants[0].images[0].asset.fluid.src}
-              data-item-url={`${siteurl}/products/${item.slug.current}`} // REPLACE WITH OWN URL
+              data-item-url={`${siteurl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
               data-item-custom1-name={item.variant_type}
               data-item-custom1-options={this.createString(item.variants)}
               data-item-custom1-value={selected.title}
