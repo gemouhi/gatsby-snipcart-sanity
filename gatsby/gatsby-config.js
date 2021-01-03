@@ -1,11 +1,11 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv")
 
-dotenv.config({ path: '.env' });
+dotenv.config({ path: ".env" })
 module.exports = {
   siteMetadata: {
     title: `Gatsby + Sanity + Snipcart Ecommerce Starter`,
-    siteUrl: 'https://readingarden.com',
-    description: 'A Gatsby + Sanity + Snipcart Ecommerce Starter 🍞',
+    siteUrl: "https://readingarden.com",
+    description: "A Gatsby + Sanity + Snipcart Ecommerce Starter 🍞",
   },
   plugins: [
     `gatsby-plugin-fontawesome-css`,
@@ -13,12 +13,12 @@ module.exports = {
       resolve: `gatsby-plugin-styled-components`,
     },
     {
-      resolve: 'gatsby-plugin-snipcartv3',
+      resolve: "gatsby-plugin-snipcartv3",
       options: {
         //this key is hooked up to a test snipcart account. replace this key with yours.
         apiKey: process.env.GATSBY_SNIPCART_APIKEY,
         autopop: true,
-      }
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -43,7 +43,7 @@ module.exports = {
 
         // If the Sanity GraphQL API was deployed using `--tag <name>`,
         // use `graphqlTag` to specify the tag name. Defaults to `default`.
-        graphqlTag: 'default',
+        graphqlTag: "default",
       },
     },
   ],

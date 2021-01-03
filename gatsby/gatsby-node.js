@@ -1,31 +1,31 @@
-const path = require(`path`);
+const path = require(`path`)
 
 async function TurnProductsIntoPages({ graphql, actions }) {
   const product = path.resolve(`./src/templates/Product.js`)
   const { createPage } = actions
 
-  const { data }= await graphql(`
+  const { data } = await graphql(`
     query {
-       products: allSanityProduct {
-         nodes {
-           title
-           slug {
-             current
-           }
-           id
-         }
-       }
-     }
-  `);
+      products: allSanityProduct {
+        nodes {
+          title
+          slug {
+            current
+          }
+          id
+        }
+      }
+    }
+  `)
 
   data.products.nodes.forEach(prod =>
     createPage({
-        path: 'product/' + prod.slug.current,
-        component: product,
-        context: {
-          slug: prod.slug.current,
-        },
-      })
+      path: `product/${prod.slug.current}`,
+      component: product,
+      context: {
+        slug: prod.slug.current,
+      },
+    })
   )
 }
 
@@ -37,31 +37,31 @@ async function TurnCategoriesIntoPages({ graphql, actions }) {
     query {
       categories: allSanityCategory {
         nodes {
-             title
-             slug {
-               current
-             }
-             id
+          title
+          slug {
+            current
+          }
+          id
         }
       }
     }
-  `);
+  `)
 
   data.categories.nodes.forEach(cat =>
     createPage({
-        path: 'category/' + cat.slug.current,
-        component: category,
-        context: {
-          category: cat.title,
-          slug: cat.slug.current,
-        },
-      })
+      path: `category/${cat.slug.current}`,
+      component: category,
+      context: {
+        category: cat.title,
+        slug: cat.slug.current,
+      },
+    })
   )
 }
 
-exports.createPages = async (params) => {
+exports.createPages = async params => {
   await Promise.all([
     TurnProductsIntoPages(params),
     TurnCategoriesIntoPages(params),
   ])
-};
+}

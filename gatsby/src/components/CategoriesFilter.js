@@ -1,6 +1,6 @@
-import React from 'react'
-import { useStaticQuery, Link, graphql } from 'gatsby'
-import styled from 'styled-components'
+import React from "react"
+import { useStaticQuery, Link, graphql } from "gatsby"
+import styled from "styled-components"
 
 const CategoryStyles = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const CategoryStyles = styled.div`
     grid-gap: 0 1rem;
     background: var(--bg);
     box-shadow: var(--shadow);
-    border-radius: var(--borderRadius); 
+    border-radius: var(--borderRadius);
     padding: 10px;
     text-decoration: none;
   }
@@ -22,8 +22,8 @@ const CategoryStyles = styled.div`
   }
 `
 
-function countProdsInCats(prods){
-    const counts = prods
+function countProdsInCats(prods) {
+  const counts = prods
     .map(prod => prod.categories)
     .flat()
     .reduce((acc, category) => {
@@ -35,15 +35,15 @@ function countProdsInCats(prods){
           id: category.id,
           title: category.title,
           slug: category.slug.current,
-          count: 1
+          count: 1,
         }
       }
       return acc
     }, {})
-    const sortedCategories = Object.values(counts).sort(
-      (a,b) => b.count - a.count
-    )
-    return sortedCategories
+  const sortedCategories = Object.values(counts).sort(
+    (a, b) => b.count - a.count
+  )
+  return sortedCategories
 }
 
 export default function CategoriesFilter() {
@@ -62,7 +62,7 @@ export default function CategoriesFilter() {
       }
     }
   `)
-  
+
   const categoryCount = countProdsInCats(products.nodes)
   const prodCount = products.nodes.length
 
@@ -70,16 +70,14 @@ export default function CategoriesFilter() {
     <CategoryStyles>
       <Link to={`/`}>
         <span className="name">All</span>
-        <span className="count">{ prodCount }</span>
+        <span className="count">{prodCount}</span>
       </Link>
-      {
-        categoryCount.map(category => 
-          <Link to={`/category/${category.slug}`} key={category.id}>
-            <span className="name">{ category.title }</span>
-            <span className="count">{ category.count }</span>
-          </Link>
-        )
-      }
+      {categoryCount.map(category => (
+        <Link to={`/category/${category.slug}`} key={category.id}>
+          <span className="name">{category.title}</span>
+          <span className="count">{category.count}</span>
+        </Link>
+      ))}
     </CategoryStyles>
   )
 }

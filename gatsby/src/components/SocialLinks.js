@@ -1,15 +1,15 @@
-import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import styled from 'styled-components'
+import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { fab } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import styled from "styled-components"
 
 const IconsWrap = styled.div`
   display: flex;
   align-items: center;
   & > * {
-    margin: .25rem;
+    margin: 0.25rem;
   }
   & > *:hover {
     opacity: 80%;
@@ -35,18 +35,15 @@ export default function SocialLinks() {
   `)
   const linksArr = links.nodes[0].socialLinks
 
-  return(
+  return (
     <IconsWrap>
       {linksArr.map(elem => {
-        return(
+        return (
           <a href={elem.link} key={elem._key}>
-            <FontAwesomeIcon icon={['fab', elem.icon]} size='lg'/>
+            <FontAwesomeIcon icon={["fab", elem.icon]} size="lg" />
           </a>
         )
       })}
     </IconsWrap>
-    
   )
 }
-
-
