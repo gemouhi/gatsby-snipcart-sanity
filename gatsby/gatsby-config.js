@@ -15,7 +15,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-snipcartv3",
       options: {
-        //this key is hooked up to a test snipcart account. replace this key with yours.
+        // this key is hooked up to a test snipcart account. replace this key with yours.
         apiKey: process.env.GATSBY_SNIPCART_APIKEY,
         autopop: true,
       },
@@ -40,10 +40,19 @@ module.exports = {
         // a token with read permissions is required
         // if you have a private dataset
         token: process.env.SANITY_TOKEN,
-
+        watchMode: true,
         // If the Sanity GraphQL API was deployed using `--tag <name>`,
         // use `graphqlTag` to specify the tag name. Defaults to `default`.
         graphqlTag: "default",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-purgecss",
+      options: {
+        ignore: [
+          "/node_modules/slick-carousel/slick/slick.css",
+          "/node_modules/slick-carousel/slick/slick-theme.css",
+        ],
       },
     },
   ],
