@@ -1,9 +1,9 @@
-import React from "react"
-import styled from "styled-components"
-import { GlobalStyle } from "../styles/globalStyle"
+import React from 'react'
+import styled from 'styled-components'
+import { GlobalStyle } from '../styles/globalStyle'
 
-import Header from "./header"
-import SocialLinks from "./SocialLinks"
+import Header from './header'
+import SocialLinks from './SocialLinks'
 
 const PageWrapper = styled.div`
   width: 90%;
@@ -48,7 +48,7 @@ function Layout({ children }) {
         <FooterStyled>
           <SocialLinks />
           <strong>
-            Built by{" "}
+            Built by{' '}
             <ExternalLink
               href="https://stordahl.dev"
               target="_blank"
@@ -58,7 +58,7 @@ function Layout({ children }) {
             </ExternalLink>
           </strong>
           <strong>
-            Contribute to this open source project on{" "}
+            Contribute to this open source project on{' '}
             <ExternalLink
               href="https://github.com/stordahl/gatsby-snipcart-sanity"
               target="_blank"

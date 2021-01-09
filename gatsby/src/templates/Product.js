@@ -1,9 +1,12 @@
 // This is the template for each programmatically generated item in the shop. It will be populated by our Sanity Project.
 
-import React from 'react'
-import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import styled from 'styled-components'
+import React from "react"
+import { graphql } from "gatsby"
+import Img from "gatsby-image"
+import styled from "styled-components"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 const Product = styled.div`
   display: grid;
@@ -136,17 +139,27 @@ export default class SingleItem extends React.Component {
   }
 
   // create the string required by snipcart to allow price changes based on option chosen
-  createString = values =>
-    values
-      .map(option => {
-        const price =
-          option.price >= 0
-            ? `[+${option.price - this.state.selected.price}]`
-            : `[${option.price}]`
-        return `${option.title}${price}`
+  createString = values => {
+    //debugger
+    console.log(values)
+    const firstPrice = values[0].price
+    const customVars = values
+      .map((option, i) => {
+        console.log(i)
+        if (i == 0) {
+          return `${option.title}`
+        } else {
+          const price =
+            option.price > firstPrice
+              ? `[+${parseInt(option.price - firstPrice).toFixed(2)}]`
+              : `[-${parseInt(option.price - firstPrice) * -1}]`
+          return `${option.title}${price}`
+        }
       })
-      .join('|')
-
+      .join("|")
+    console.log(customVars)
+    return customVars
+  }
   // calculate price based on option selected for display on item page
   updatePrice = (basePrice, values) => {
     const selectedOption = values.find(
@@ -155,148 +168,97 @@ export default class SingleItem extends React.Component {
     return (basePrice + selectedOption.priceChange).toFixed(2)
   }
 
+  CarouselPage = selected => {
+    console.log(selected.images)
+
+    const settings = {
+      dots: true,
+      infinite: true,
+      autoplay: true,
+    }
+    const carousel = selected.images.map((img, i) => (
+      <ImgStyled fluid={img.asset.fluid} key={i} />
+    ))
+    console.log(carousel)
+    return (
+      <Slider {...settings} className="overflow-hidden">
+        {carousel}
+      </Slider>
+    )
+  }
+
   render() {
     const { item } = this.state
     const { selected } = this.state
     const { siteUrl } = this.props.data.site.siteMetadata
-
     const digitalVersion = item.variants.findIndex(isDigital)
-
-    if (item.variants.length === 1 && digitalVersion === -1) {
-      return (
-        <Product>
-          <div>
-            <Heading>{item.title}</Heading>
-            <ImgStyled fluid={item.variants[0].images[0].asset.fluid} />
-          </div>
-          <div>
-            <Price>${selected.price}</Price>
-            <Description>{item.body.en[0].children[0].text}</Description>
-            <InputWrap>
-              <BuyButton
-                className="snipcart-add-item"
-                data-item-id={item.id}
-                data-item-price={this.state.selected.price}
-                data-item-name={item.title}
-                data-item-description={item.blurb.en}
-                data-item-image={item.variants[0].images[0].asset.fluid.src}
-                data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
-              >
-                Add to cart
-              </BuyButton>
-            </InputWrap>
-          </div>
-        </Product>
-      )
-    }
+    console.log(digitalVersion !== -1)
+    const firstPrice = item.variants[0].price.toFixed(2)
+    const ItemName = `${item.title} - ${selected.title}`
+    let button
     if (digitalVersion !== -1) {
-      if (item.variants.length > 1) {
-        return (
-          <Product>
-            <div>
-              <Heading>{item.title}</Heading>
-              <ImgStyled fluid={item.variants[0].images[0].asset.fluid} />
-            </div>
-            <div>
-              <Price>${selected.price}</Price>
-              <Description>{item.body.en[0].children[0].text}</Description>
-              <label>{item.variant_type}</label>
-              <InputWrap>
-                <Dropdown
-                  id={item.title}
-                  onChange={e => this.setSelected(e.target.value)}
-                  value={this.state.selected.title}
-                >
-                  {item.variants.map(option => (
-                    <DropdownOption key={option.title}>
-                      {option.title}
-                    </DropdownOption>
-                  ))}
-                </Dropdown>
-                <BuyButton
-                  className="snipcart-add-item"
-                  data-item-id={item.id}
-                  data-item-price={this.state.selected.price}
-                  data-item-name={item.title}
-                  data-item-description={item.blurb.en}
-                  data-item-image={item.variants[0].images[0].asset.fluid.src}
-                  data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
-                  data-item-custom1-name={item.variant_type}
-                  data-item-custom1-options={this.createString(item.variants)}
-                  data-item-custom1-value={selected.title}
-                  data-item-file-guid={item.variants[digitalVersion].guid}
-                >
-                  Add to cart
-                </BuyButton>
-              </InputWrap>
-            </div>
-          </Product>
-        )
-      }
-      return (
-        <Product>
-          <div>
-            <Heading>{item.title}</Heading>
-            <ImgStyled fluid={item.variants[0].images[0].asset.fluid} />
-          </div>
-          <div>
-            <Price>${selected.price}</Price>
-            <Description>{item.body.en[0].children[0].text}</Description>
-            <label>{item.variant_type}</label>
-            <InputWrap>
-              <BuyButton
-                className="snipcart-add-item"
-                data-item-id={item.id}
-                data-item-price={this.state.selected.price}
-                data-item-name={item.title}
-                data-item-description={item.blurb.en}
-                data-item-image={item.variants[0].images[0].asset.fluid.src}
-                data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
-                data-item-file-guid={item.variants[digitalVersion].guid}
-              >
-                Add to cart
-              </BuyButton>
-            </InputWrap>
-          </div>
-        </Product>
+      button = (
+        <BuyButton
+          className="snipcart-add-item"
+          data-item-id={item.id}
+          data-item-price={firstPrice}
+          data-item-name={ItemName}
+          data-item-description={item.blurb.en}
+          data-item-image={item.variants[0].images[0].asset.fluid.src}
+          data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
+          data-item-custom1-name={item.variant_type}
+          data-item-custom1-options={this.createString(item.variants)}
+          data-item-custom1-value={selected.title}
+          data-item-file-guid={item.variants[digitalVersion].guid}
+        >
+          Add to cart
+        </BuyButton>
+      )
+    } else {
+      button = (
+        <BuyButton
+          className="snipcart-add-item"
+          data-item-id={item.id}
+          data-item-price={firstPrice}
+          data-item-name={ItemName}
+          data-item-description={item.blurb.en}
+          data-item-image={item.variants[0].images[0].asset.fluid.src}
+          data-item-url={`${siteUrl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
+          data-item-custom1-name={item.variant_type}
+          data-item-custom1-options={this.createString(item.variants)}
+          data-item-custom1-value={selected.title}
+        >
+          Add to cart
+        </BuyButton>
       )
     }
     return (
       <Product>
         <div>
           <Heading>{item.title}</Heading>
-          <ImgStyled fluid={item.variants[0].images[0].asset.fluid} />
+          {this.CarouselPage(selected)}
         </div>
         <div>
           <Price>${selected.price}</Price>
           <Description>{item.body.en[0].children[0].text}</Description>
           <label>{item.variant_type}</label>
           <InputWrap>
-            <Dropdown
-              id={item.title}
-              onChange={e => this.setSelected(e.target.value)}
-              value={this.state.selected.title}
-            >
-              {item.variants.map(option => (
-                <DropdownOption key={option.title}>
-                  {option.title}
-                </DropdownOption>
-              ))}
-            </Dropdown>
-            <BuyButton
-              className="snipcart-add-item"
-              data-item-id={item.id}
-              data-item-price={this.state.selected.price}
-              data-item-name={item.title}
-              data-item-description={item.blurb.en}
-              data-item-image={item.variants[0].images[0].asset.fluid.src}
-              data-item-url={`${siteurl}/product/${item.slug.current}`} // REPLACE WITH OWN URL
-              data-item-custom1-name={item.variant_type}
-              data-item-custom1-options={this.createString(item.variants)}
-              data-item-custom1-value={selected.title}
-            >
-              Add to cart
-            </BuyButton>
+            {item.variants.length > 1 ? (
+              <Dropdown
+                id={item.title}
+                onChange={e => this.setSelected(e.target.value)}
+                value={this.state.selected.title}
+              >
+                {item.variants.map(option => (
+                  <DropdownOption key={option.title}>
+                    {option.title}
+                  </DropdownOption>
+                ))}
+              </Dropdown>
+            ) : (
+              <div></div>
+            )}
+            {button}
           </InputWrap>
         </div>
       </Product>
@@ -341,7 +303,7 @@ export const pageQuery = graphql`
             assetId
             description
             fluid(maxWidth: 800) {
-              src
+              ...GatsbySanityImageFluid
             }
           }
         }
